@@ -1,0 +1,2 @@
+# GadgeothekMiniprojekt
+MGE Miniprojekt
