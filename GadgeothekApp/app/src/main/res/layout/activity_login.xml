@@ -46,7 +46,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnRegister"
-        android:layout_below="@+id/etPassword"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignBaseline="@+id/btnLogIn"
+        android:layout_alignBottom="@+id/btnLogIn"
+        android:layout_toRightOf="@+id/btnLogIn"
+        android:layout_toEndOf="@+id/btnLogIn" />
 
 </RelativeLayout>
