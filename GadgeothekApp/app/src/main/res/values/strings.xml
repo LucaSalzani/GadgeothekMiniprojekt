@@ -28,4 +28,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save">Save</string>
+
+
+    <string-array name="server_list">
+        <item>mge1.dev.ifs.hsr.ch</item>
+        <item>mge2.dev.ifs.hsr.ch</item>
+        <item>mge3.dev.ifs.hsr.ch</item>
+        <item>mge4.dev.ifs.hsr.ch</item>
+        <item>mge5.dev.ifs.hsr.ch</item>
+        <item>mge6.dev.ifs.hsr.ch</item>
+        <item>mge7.dev.ifs.hsr.ch</item>
+        <item>mge8.dev.ifs.hsr.ch</item>
+        <item>mge9.dev.ifs.hsr.ch</item>
+        <item>mge10.dev.ifs.hsr.ch</item>
+    </string-array>
 </resources>

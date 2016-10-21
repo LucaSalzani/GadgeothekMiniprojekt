@@ -56,10 +56,8 @@ public class MainTabActivity extends AppCompatActivity {
 
 
     }
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -68,16 +66,13 @@ public class MainTabActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            //return PlaceholderFragment.newInstance(position + 1);
             switch (position) {
                 case 0:
                     return new IssueFragment();
                 case 1:
-                    return new IssueFragment(); //TODO: ReservationFragment
+                    return new ReservationFragment();
                 case 2:
-                    return new IssueFragment();
+                    return new SettingsFragment();
             }
             return null;
         }
