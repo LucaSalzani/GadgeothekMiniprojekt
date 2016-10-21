@@ -45,7 +45,7 @@ public class IssueFragment extends Fragment {
                 }
             @Override
             public void onError(String message) {
-                Toast.makeText(getContext(), "Login failed: " + message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Get loans failed: " + message, Toast.LENGTH_LONG).show();
             }});
 
         recyclerView.setAdapter(adapter);
