@@ -70,12 +70,20 @@ public class MainTabActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            //return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return new IssueFragment();
+                case 1:
+                    return new IssueFragment(); //TODO: ReservationFragment
+                case 2:
+                    return new IssueFragment();
+            }
+            return null;
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 3;
         }
 

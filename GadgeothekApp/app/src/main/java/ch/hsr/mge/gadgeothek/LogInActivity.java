@@ -49,7 +49,8 @@ public class LogInActivity extends AppCompatActivity {
                         if (input) {
                             Intent intent = new Intent(LogInActivity.this, MainTabActivity.class);
                             startActivity(intent);
-                            //TODO: Man darf mit dem Back button nicht mehr zurück kommen können
+                            finish();
+
                         } else {
                             Toast.makeText(getApplicationContext(), "Wrong user or password", Toast.LENGTH_LONG).show();
                         }
