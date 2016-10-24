@@ -20,4 +20,14 @@
         android:text="Title of the Gadget"
         android:textSize="24sp" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_below="@+id/textView"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:id="@+id/editText" />
+
 </RelativeLayout>
