@@ -1,6 +1,8 @@
 package ch.hsr.mge.gadgeothek;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +51,20 @@ public class ReservationFragment extends Fragment {
             }});
 
         recyclerView.setAdapter(adapter);
+
+
+        FloatingActionButton fabAddReservation = (FloatingActionButton)rootView.findViewById(R.id.fabAddReservation);
+        fabAddReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddReservation.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
 
         return rootView;
     }

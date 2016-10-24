@@ -16,7 +16,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        Spinner spinner = (Spinner)rootView.findViewById(R.id.spnServer);
+        final Spinner spinner = (Spinner)rootView.findViewById(R.id.spnServer);
 
         String current = LibraryService.getServerAddress();
         int serverNr = Character.getNumericValue(current.charAt(10));
@@ -31,6 +31,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO: Save Server and reconnect
+                
             }
         });
 
