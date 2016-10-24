@@ -1,13 +1,15 @@
 package ch.hsr.mge.gadgeothek;
 
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -26,13 +28,15 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
         public View parent;
         public TextView textview;
         public TextView dueView;
-        public ImageView stateView;
-        public ViewHolder(View parent,TextView textView, TextView dueView, ImageView stateView){
+        public TextView stateView;
+        public ImageView imgView;
+        public ViewHolder(View parent,TextView textView, TextView dueView, TextView stateView, ImageView imgView){
             super(parent);
             this.parent = parent;
             this.textview = textView;
             this.dueView = dueView;
             this.stateView = stateView;
+            this.imgView = imgView;
         }
     }
 
@@ -48,11 +52,12 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View v = layoutInflater.inflate(R.layout.rowlayout,parent,false);
+        View v = layoutInflater.inflate(R.layout.rowlayout_reservation,parent,false);
         TextView textView = (TextView) v.findViewById(R.id.textView);
         TextView  dueView = (TextView) v.findViewById(R.id.resdate);
-        ImageView stateView = (ImageView) v.findViewById(R.id.stateview);
-        ViewHolder viewHolder = new ViewHolder(v, textView, dueView, stateView);
+        TextView stateView = (TextView) v.findViewById(R.id.stateview);
+        ImageView imgView = (ImageView) v.findViewById(R.id.stateimgview);
+        ViewHolder viewHolder = new ViewHolder(v, textView, dueView, stateView, imgView);
         return viewHolder;
 
     }
@@ -63,9 +68,11 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
         holder.textview.setText(res.getGadget().getName());
         holder.dueView.setText("Reserved: "+ android.text.format.DateFormat.format("dd.MM.yyyy",res.getReservationDate()));
         if(!res.isReady()) {
-            holder.stateView.setColorFilter(Color.rgb(255,0,0));
+            holder.imgView.setImageResource(android.R.drawable.presence_away);
+            holder.stateView.setText("Status: Waiting on position "+res.getWatingPosition());
         }else{
-            holder.stateView.setColorFilter(Color.rgb(0,255,0));
+            holder.imgView.setImageResource(android.R.drawable.presence_online);
+            holder.stateView.setText("Status: Ready to pick up");
         }
 
         /*
