@@ -1,9 +1,12 @@
 package ch.hsr.mge.gadgeothek;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -22,10 +25,14 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View parent;
         public TextView textview;
-        public ViewHolder(View parent,TextView textView){
+        public TextView dueView;
+        public ImageView stateView;
+        public ViewHolder(View parent,TextView textView, TextView dueView, ImageView stateView){
             super(parent);
             this.parent = parent;
             this.textview = textView;
+            this.dueView = dueView;
+            this.stateView = stateView;
         }
     }
 
@@ -43,7 +50,9 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View v = layoutInflater.inflate(R.layout.rowlayout,parent,false);
         TextView textView = (TextView) v.findViewById(R.id.textView);
-        ViewHolder viewHolder = new ViewHolder(v, textView);
+        TextView  dueView = (TextView) v.findViewById(R.id.resdate);
+        ImageView stateView = (ImageView) v.findViewById(R.id.stateview);
+        ViewHolder viewHolder = new ViewHolder(v, textView, dueView, stateView);
         return viewHolder;
 
     }
@@ -52,6 +61,12 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Reservation res = dataset.get(position);
         holder.textview.setText(res.getGadget().getName());
+        holder.dueView.setText("Reserved: "+ android.text.format.DateFormat.format("dd.MM.yyyy",res.getReservationDate()));
+        if(!res.isReady()) {
+            holder.stateView.setColorFilter(Color.rgb(255,0,0));
+        }else{
+            holder.stateView.setColorFilter(Color.rgb(0,255,0));
+        }
 
         /*
         holder.textview.setOnClickListener(new View.OnClickListener() {
