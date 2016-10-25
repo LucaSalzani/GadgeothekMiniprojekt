@@ -1,5 +1,6 @@
 package ch.hsr.mge.gadgeothek;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
+
+import ch.hsr.mge.gadgeothek.service.Callback;
+import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 public class MainTabActivity extends AppCompatActivity {
 
@@ -55,6 +60,37 @@ public class MainTabActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_logout) {
+            LibraryService.logout(new Callback<Boolean>() {
+                @Override
+                public void onCompletion(Boolean input) {
+                    Intent intent = new Intent(MainTabActivity.this, LogInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onError(String message) {
+                    Toast.makeText(getApplicationContext(), "Could not logout. Well, you're fucked", Toast.LENGTH_LONG).show();
+                }
+            });
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
