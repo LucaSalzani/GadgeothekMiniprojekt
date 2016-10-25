@@ -72,7 +72,7 @@ public class MainTabActivity extends AppCompatActivity {
                 case 1:
                     return new ReservationFragment();
                 case 2:
-                    return new SettingsFragment();
+                    return new GadgetFragment();
             }
             return null;
         }
@@ -90,7 +90,7 @@ public class MainTabActivity extends AppCompatActivity {
                 case 1:
                     return "Reservation";
                 case 2:
-                    return "Settings";
+                    return "Gadgets";
             }
             return null;
         }

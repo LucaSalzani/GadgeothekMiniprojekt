@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:minHeight="60dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:id="@+id/textvtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title of the Gadget"
+        android:textSize="24sp" />
+
+    <TextView
+        android:text="Manufactur: Nokia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textvmanufactur"
+        android:layout_below="@+id/textvtitle"
+        android:layout_alignLeft="@+id/textvtitle"
+        android:layout_alignStart="@+id/textvtitle" />
+
+    <TextView
+        android:text="Price: 500 CHF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textvprice"
+        android:layout_below="@+id/textvmanufactur"
+        android:layout_alignLeft="@+id/textvmanufactur"
+        android:layout_alignStart="@+id/textvmanufactur"/>
+
+
+    <TextView
+        android:text="Condtion: New"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textvcondition"
+        android:layout_below="@+id/textvprice"
+        android:layout_alignLeft="@+id/textvprice"
+        android:layout_alignStart="@+id/textvprice" />
+
+</RelativeLayout>
