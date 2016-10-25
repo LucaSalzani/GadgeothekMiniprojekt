@@ -22,7 +22,8 @@
             android:name=".MainTabActivity"
             android:label="@string/title_activity_main_tab"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".AddReservation"></activity>
+        <activity android:name=".AddReservation" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

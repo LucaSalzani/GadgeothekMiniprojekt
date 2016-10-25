@@ -40,25 +40,40 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v) {
                 //TODO: Save Server and reconnect
                 final String address = "http://" + spinner.getSelectedItem().toString() + "/public";
-                LibraryService.logout(new Callback<Boolean>() {
-                    @Override
-                    public void onCompletion(Boolean input) {
+                if (LibraryService.isLoggedIn()) {
+                    LibraryService.logout(new Callback<Boolean>() {
+                        @Override
+                        public void onCompletion(Boolean input) {
 
-                        SharedPreferences preferences = getActivity().getSharedPreferences("address", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("address", address);
-                        editor.commit();
+                            SharedPreferences preferences = getActivity().getSharedPreferences("address", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("address", address);
+                            editor.commit();
 
-                        Intent intent = new Intent(getActivity(), LogInActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
+                            LibraryService.setServerAddress(address);
 
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Server change failed", Toast.LENGTH_LONG).show();
-                    }
-                });
+                            //Intent intent = new Intent(getActivity(), LogInActivity.class);
+                            //startActivity(intent);
+                            getActivity().finish();
+                        }
+
+                        @Override
+                        public void onError(String message) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Server change failed", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    SharedPreferences preferences = getActivity().getSharedPreferences("address", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("address", address);
+                    editor.commit();
+
+                    LibraryService.setServerAddress(address);
+
+                    getActivity().finish();
+                }
+
+
                 
             }
         });
