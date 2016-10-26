@@ -59,6 +59,8 @@
         android:layout_below="@+id/etPassword"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/ibtnSettings" />
+        android:id="@+id/ibtnSettings"
+        android:contentDescription="@string/settings"
+        android:tint="@android:color/black" />
 
 </RelativeLayout>

@@ -22,6 +22,15 @@ public class LogInActivity extends AppCompatActivity {
      */
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String mail = data.getStringExtra("email");
+            ((EditText)findViewById(R.id.etEmail)).setText(mail);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -39,7 +48,8 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LogInActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -78,7 +88,7 @@ public class LogInActivity extends AppCompatActivity {
         ibtnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Call Settings Fragment
+
                 Intent intent = new Intent(LogInActivity.this, SettingsActivity.class);
                 startActivity(intent);
 
