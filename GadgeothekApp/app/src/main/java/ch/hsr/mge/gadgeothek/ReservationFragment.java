@@ -53,14 +53,6 @@ public class ReservationFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        FloatingActionButton fabAddReservation = (FloatingActionButton)rootView.findViewById(R.id.fabAddReservation);
-        fabAddReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddReservation.class);
-                startActivity(intent);
-            }
-        });
 
 
 
