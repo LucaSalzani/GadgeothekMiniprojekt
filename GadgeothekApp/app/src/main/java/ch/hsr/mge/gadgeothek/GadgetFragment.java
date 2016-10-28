@@ -14,6 +14,7 @@ import java.util.List;
 
 import ch.hsr.mge.gadgeothek.domain.Gadget;
 import ch.hsr.mge.gadgeothek.domain.Loan;
+import ch.hsr.mge.gadgeothek.helper.SimpleDividerItemDecoration;
 import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
@@ -49,6 +50,7 @@ public class GadgetFragment extends Fragment {
                 Toast.makeText(getContext(),"Get gadgets failed: " + message, Toast.LENGTH_LONG).show();
             }});
 
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         recyclerView.setAdapter(adapter);
 
         return rootView;
