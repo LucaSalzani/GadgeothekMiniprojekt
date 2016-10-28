@@ -83,9 +83,9 @@ public class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolde
                     @Override
                     public void onCompletion(Boolean input) {
                         if(input){
-                            Toast.makeText(holder.parent.getContext(), "Gadget reservated", Toast.LENGTH_LONG).show();
+                            Toast.makeText(holder.parent.getContext(), "Gadget sucscessful reservated", Toast.LENGTH_LONG).show();
                         }else{
-                            Toast.makeText(holder.parent.getContext(), "Gadget already reservated", Toast.LENGTH_LONG).show();
+                            Toast.makeText(holder.parent.getContext(), "Gadget reservation not possible", Toast.LENGTH_LONG).show();
                         }
                     }
 
