@@ -50,4 +50,13 @@
         android:layout_alignLeft="@+id/textvprice"
         android:layout_alignStart="@+id/textvprice" />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_add_white_24px"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageButtonAdd" />
+
 </RelativeLayout>
