@@ -53,10 +53,13 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_add_white_24px"
+        android:src="@drawable/ic_add_box_black_24dp"
+        android:tint="#BBBBBB"
+        android:background="@android:color/transparent"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+
         android:id="@+id/imageButtonAdd" />
 
 </RelativeLayout>

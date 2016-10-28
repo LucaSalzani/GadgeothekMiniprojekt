@@ -50,7 +50,9 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:src="@drawable/ic_microsoft_excel_logo"
+        android:background="@android:color/transparent"
+        android:tint="#BBBBBB"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
