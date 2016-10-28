@@ -90,7 +90,7 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
                     @Override
                     public void onCompletion(Boolean input) {
                         Toast.makeText(holder.parent.getContext(), "Reservation deleted", Toast.LENGTH_LONG).show();
-
+                        //TODO: Refresh here
                     }
 
                     @Override
