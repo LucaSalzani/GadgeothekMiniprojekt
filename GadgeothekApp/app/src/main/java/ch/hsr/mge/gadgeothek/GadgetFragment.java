@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hsr.mge.gadgeothek.domain.Gadget;
-import ch.hsr.mge.gadgeothek.domain.Loan;
 import ch.hsr.mge.gadgeothek.helper.SimpleDividerItemDecoration;
 import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
@@ -28,7 +27,7 @@ public class GadgetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_gadget, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
 
