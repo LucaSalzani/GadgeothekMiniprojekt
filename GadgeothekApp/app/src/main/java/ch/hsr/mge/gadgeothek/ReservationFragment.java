@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hsr.mge.gadgeothek.domain.Reservation;
+import ch.hsr.mge.gadgeothek.helper.SimpleDividerItemDecoration;
 import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
@@ -50,6 +51,7 @@ public class ReservationFragment extends Fragment {
                 Toast.makeText(getContext(), "Get reservations failed: " + message, Toast.LENGTH_LONG).show();
             }});
 
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         recyclerView.setAdapter(adapter);
 
         return rootView;
