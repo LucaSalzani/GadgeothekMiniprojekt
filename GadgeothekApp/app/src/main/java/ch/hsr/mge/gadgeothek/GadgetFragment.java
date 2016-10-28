@@ -2,6 +2,7 @@ package ch.hsr.mge.gadgeothek;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class GadgetFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private GadgetAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,21 +40,35 @@ public class GadgetFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new GadgetAdapter(new ArrayList<Gadget>());
+        refreshData();
+
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
+
+        return rootView;
+    }
+
+    private void refreshData() {
         LibraryService.getGadgets( new Callback<List<Gadget>>(){
             @Override
             public void onCompletion(List<Gadget> input){
                 adapter.setData(input);
                 adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
             @Override
             public void onError(String message) {
                 Toast.makeText(getContext(),"Get gadgets failed: " + message, Toast.LENGTH_LONG).show();
+                mSwipeRefreshLayout.setRefreshing(false);
             }});
-
-        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
-        recyclerView.setAdapter(adapter);
-
-        return rootView;
     }
 
     /*

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ public class ReservationFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private ReservationAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,21 +42,35 @@ public class ReservationFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new ReservationAdapter(new ArrayList<Reservation>());
+        refreshData();
+
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
+        recyclerView.setAdapter(adapter);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
+
+        return rootView;
+    }
+
+    private void refreshData() {
         LibraryService.getReservationsForCustomer(new Callback<List<Reservation>>(){
             @Override
             public void onCompletion(List<Reservation> input){
                 adapter.setData(input);
                 adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
             @Override
             public void onError(String message) {
                 Toast.makeText(getContext(), "Get reservations failed: " + message, Toast.LENGTH_LONG).show();
+                mSwipeRefreshLayout.setRefreshing(false);
             }});
-
-        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
-        recyclerView.setAdapter(adapter);
-
-        return rootView;
     }
 
 }
