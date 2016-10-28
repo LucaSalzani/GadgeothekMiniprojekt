@@ -1,8 +1,6 @@
 package ch.hsr.mge.gadgeothek;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.hsr.mge.gadgeothek.domain.Reservation;
+import ch.hsr.mge.gadgeothek.helper.ItemSelectionListener;
 import ch.hsr.mge.gadgeothek.helper.SimpleDividerItemDecoration;
 import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 
-public class ReservationFragment extends Fragment {
+public class ReservationFragment extends Fragment implements ItemSelectionListener {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -41,7 +40,7 @@ public class ReservationFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new ReservationAdapter(new ArrayList<Reservation>());
+        adapter = new ReservationAdapter(new ArrayList<Reservation>(), this);
         refreshData();
 
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
@@ -73,4 +72,19 @@ public class ReservationFragment extends Fragment {
             }});
     }
 
+    @Override
+    public void onItemSelected(Reservation res) {
+        LibraryService.deleteReservation(res, new Callback<Boolean>() {
+            @Override
+            public void onCompletion(Boolean input) {
+                Toast.makeText(getContext(), "Reservation deleted", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getContext(), "Delete reservation failed: " + message, Toast.LENGTH_LONG).show();
+            }
+        });
+        refreshData();
+    }
 }

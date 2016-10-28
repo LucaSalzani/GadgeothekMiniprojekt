@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import ch.hsr.mge.gadgeothek.domain.Reservation;
+import ch.hsr.mge.gadgeothek.helper.ItemSelectionListener;
 import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
@@ -25,7 +26,7 @@ import static java.security.AccessController.getContext;
 
 public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter.ViewHolder> {
     private List<Reservation> dataset;
-    ///private ItemSelectionListener selectionListener;
+    private ItemSelectionListener selectionListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View parent;
@@ -45,9 +46,9 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
         }
     }
 
-    public ReservationAdapter(List<Reservation> loans) {
+    public ReservationAdapter(List<Reservation> loans, ItemSelectionListener selectionListener) {
         dataset = loans;
-        //this.selectionListener = selectionListener;
+        this.selectionListener = selectionListener;
     }
 
     public void setData(List<Reservation> loans){
@@ -86,18 +87,7 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
         holder.imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LibraryService.deleteReservation(res, new Callback<Boolean>() {
-                    @Override
-                    public void onCompletion(Boolean input) {
-                        Toast.makeText(holder.parent.getContext(), "Reservation deleted", Toast.LENGTH_LONG).show();
-                        //TODO: Refresh here
-                    }
-
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(holder.parent.getContext(), "Delete reservation failed: " + message, Toast.LENGTH_LONG).show();
-                    }
-                });
+                selectionListener.onItemSelected(res);
             }
         });
 

@@ -55,11 +55,8 @@ public class MainTabActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
     }
 
     @Override
@@ -94,7 +91,7 @@ public class MainTabActivity extends AppCompatActivity {
     }
 
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter{
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
