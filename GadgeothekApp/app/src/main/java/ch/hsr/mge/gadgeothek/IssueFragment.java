@@ -2,6 +2,7 @@ package ch.hsr.mge.gadgeothek;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class IssueFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private IssueAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,22 +40,39 @@ public class IssueFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new IssueAdapter(new ArrayList<Loan>());
-        LibraryService.getLoansForCustomer( new Callback<List<Loan>>(){
-            @Override
-            public void onCompletion(List<Loan> input){
-                    adapter.setData(input);
-                    adapter.notifyDataSetChanged();
-                }
-            @Override
-            public void onError(String message) {
-                Toast.makeText(getContext(),"Get loans failed: " + message, Toast.LENGTH_LONG).show();
-            }});
+        refreshData();
 
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         recyclerView.setAdapter(adapter);
 
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
+
         return rootView;
     }
+
+    private void refreshData() {
+        LibraryService.getLoansForCustomer( new Callback<List<Loan>>(){
+            @Override
+            public void onCompletion(List<Loan> input){
+                adapter.setData(input);
+                adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getContext(),"Get loans failed: " + message, Toast.LENGTH_LONG).show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }});
+    }
+
+
 
     /*
     @Override
