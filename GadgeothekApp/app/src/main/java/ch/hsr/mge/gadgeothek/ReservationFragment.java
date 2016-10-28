@@ -52,12 +52,6 @@ public class ReservationFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-
-
-
-
-
-
         return rootView;
     }
 
