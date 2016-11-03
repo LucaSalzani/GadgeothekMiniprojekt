@@ -1,5 +1,6 @@
 package ch.hsr.mge.gadgeothek;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,18 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import ch.hsr.mge.gadgeothek.domain.Loan;
 
 
-/**
- * Created by fguebeli on 21.10.2016.
- */
 
 public class IssueAdapter extends  RecyclerView.Adapter<IssueAdapter.ViewHolder> {
     private List<Loan> dataset;
-    ///private ItemSelectionListener selectionListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View parent;
@@ -39,7 +38,6 @@ public class IssueAdapter extends  RecyclerView.Adapter<IssueAdapter.ViewHolder>
 
     public IssueAdapter(List<Loan> loans) {
         dataset = loans;
-        //this.selectionListener = selectionListener;
     }
 
     public void setData(List<Loan> loans){
@@ -64,15 +62,15 @@ public class IssueAdapter extends  RecyclerView.Adapter<IssueAdapter.ViewHolder>
         final Loan loan = dataset.get(position);
         holder.textview.setText(loan.getGadget().getName());
         holder.pickView.setText("Pickup Date: "+ android.text.format.DateFormat.format("dd.MM.yyyy",loan.getPickupDate()));
-        if(loan.isLent()){
-            holder.retView.setText("Return Date: Not returned");
-        }else{
-            holder.retView.setText("Return Date: "+android.text.format.DateFormat.format("dd.MM.yyyy",loan.getReturnDate()));
-        }
 
         if(!loan.isOverdue()) {
             holder.imgView.setImageResource(android.R.drawable.presence_busy);
+            holder.retView.setText("Days until returning: Overdue");
+            holder.retView.setTextColor(Color.RED);
         }else{
+            long timediff = loan.overDueDate().getTime() - new Date().getTime();
+            long days = TimeUnit.DAYS.convert(timediff,TimeUnit.MILLISECONDS);
+            holder.retView.setText("Days until returning: "+days);
             holder.imgView.setImageResource(android.R.drawable.presence_online);
         }
 

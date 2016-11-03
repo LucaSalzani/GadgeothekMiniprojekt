@@ -20,7 +20,6 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 
 public class IssueFragment extends Fragment {
-    //private ItemSelectionListener itemSelectionCallback = null;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private IssueAdapter adapter;
@@ -71,25 +70,4 @@ public class IssueFragment extends Fragment {
                 mSwipeRefreshLayout.setRefreshing(false);
             }});
     }
-
-
-
-    /*
-    @Override
-    public void onAttach(Context activity) {
-        super.onAttach(activity);
-
-        if (!(activity instanceof ItemSelectionListener)) {
-            throw new IllegalStateException("Activity must implement ItemSelectionListener");
-        }
-
-        itemSelectionCallback = (ItemSelectionListener) activity;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        itemSelectionCallback = null;
-    }
-    */
 }
