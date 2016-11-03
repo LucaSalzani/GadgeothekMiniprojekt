@@ -26,6 +26,7 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
     private TextView emptyView;
     private ReservationAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    protected boolean onCreateViewCalled = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,8 +62,13 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
                 refreshData();
             }
         });
-
+        onCreateViewCalled = true;
         return rootView;
+    }
+
+    public boolean hasOnCreateViewBeenCalled()
+    {
+        return onCreateViewCalled;
     }
 
     private void checkifAdapterEmpty(){
@@ -86,6 +92,10 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
                 Toast.makeText(getContext(), String.format("Get reservations failed: %s", message), Toast.LENGTH_LONG).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }});
+    }
+
+    public void updateView(){
+        refreshData();
     }
 
     @Override

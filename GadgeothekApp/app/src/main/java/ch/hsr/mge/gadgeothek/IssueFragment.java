@@ -81,6 +81,9 @@ public class IssueFragment extends Fragment {
             }});
     }
 
+    public void updateView(){
+        refreshData();
+    }
     private void checkifAdapterEmpty(){
         if(adapter.getItemCount() == 0){
             emptyView.setVisibility(View.VISIBLE);

@@ -79,6 +79,11 @@ public class GadgetFragment extends Fragment {
             }});
     }
 
+    public void updateView(){
+        this.
+        refreshData();
+    }
+
     private void checkifAdapterEmpty(){
         if(adapter.getItemCount() == 0){
             emptyView.setVisibility(View.VISIBLE);
