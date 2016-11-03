@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 public class IssueFragment extends Fragment {
     private RecyclerView recyclerView;
+    private TextView emptyView;
     private LinearLayoutManager layoutManager;
     private IssueAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -31,6 +33,7 @@ public class IssueFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        emptyView = (TextView) rootView.findViewById(R.id.emptyView);
 
         // Eine Optimierung, wenn sich die Displaygroesse der Liste nicht aendern wird.
         recyclerView.setHasFixedSize(true);
@@ -39,10 +42,18 @@ public class IssueFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new IssueAdapter(new ArrayList<Loan>());
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                checkifAdapterEmpty();
+            }
+        });
         refreshData();
 
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
         recyclerView.setAdapter(adapter);
+
 
 
         mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipeRefreshLayout);
@@ -69,5 +80,13 @@ public class IssueFragment extends Fragment {
                 Toast.makeText(getContext(),"Get loans failed: " + message, Toast.LENGTH_LONG).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }});
+    }
+
+    private void checkifAdapterEmpty(){
+        if(adapter.getItemCount() == 0){
+            emptyView.setVisibility(View.VISIBLE);
+        }else{
+            emptyView.setVisibility(View.GONE);
+        }
     }
 }

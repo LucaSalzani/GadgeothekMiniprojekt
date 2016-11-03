@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 public class ReservationFragment extends Fragment implements ItemSelectionListener {
 
     private RecyclerView recyclerView;
+    private TextView emptyView;
     private LinearLayoutManager layoutManager;
     private ReservationAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -33,6 +36,7 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        emptyView = (TextView) rootView.findViewById(R.id.emptyView);
 
         // Eine Optimierung, wenn sich die Displaygroesse der Liste nicht aendern wird.
         recyclerView.setHasFixedSize(true);
@@ -41,6 +45,13 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new ReservationAdapter(new ArrayList<Reservation>(), this);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver(){
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                checkifAdapterEmpty();
+            }
+        });
         refreshData();
 
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getContext()));
@@ -55,6 +66,14 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
         });
 
         return rootView;
+    }
+
+    private void checkifAdapterEmpty(){
+        if(adapter.getItemCount() == 0){
+            emptyView.setVisibility(View.VISIBLE);
+        }else{
+            emptyView.setVisibility(View.GONE);
+        }
     }
 
     private void refreshData() {
