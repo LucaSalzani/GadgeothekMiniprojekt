@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +23,7 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 public class ReservationFragment extends Fragment implements ItemSelectionListener {
 
-    private RecyclerView recyclerView;
     private TextView emptyView;
-    private LinearLayoutManager layoutManager;
     private ReservationAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -35,13 +32,13 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         emptyView = (TextView) rootView.findViewById(R.id.emptyView);
 
         // Eine Optimierung, wenn sich die Displaygroesse der Liste nicht aendern wird.
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new ReservationAdapter(new ArrayList<Reservation>(), this);
@@ -86,7 +83,7 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
             }
             @Override
             public void onError(String message) {
-                Toast.makeText(getContext(), "Get reservations failed: " + message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), String.format("Get reservations failed: %s", message), Toast.LENGTH_LONG).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }});
     }
@@ -96,12 +93,12 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
         LibraryService.deleteReservation(res, new Callback<Boolean>() {
             @Override
             public void onCompletion(Boolean input) {
-                Toast.makeText(getContext(), "Reservation deleted", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.ReservationDeleted, Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(String message) {
-                Toast.makeText(getContext(), "Delete reservation failed: " + message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.ReservationDeletedFailed) + message, Toast.LENGTH_LONG).show();
             }
         });
         refreshData();

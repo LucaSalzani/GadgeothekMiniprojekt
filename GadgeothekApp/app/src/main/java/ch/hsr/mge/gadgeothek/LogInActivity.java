@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +15,6 @@ import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 public class LogInActivity extends AppCompatActivity {
-
-    /*
-    Logins: test1@test.ch nr: 12341 pw: test1
-     */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -48,7 +43,6 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LogInActivity.this, RegisterActivity.class);
-                //startActivity(intent);
                 startActivityForResult(intent, 1);
             }
         });
@@ -70,13 +64,13 @@ public class LogInActivity extends AppCompatActivity {
                             finish();
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "Wrong user or password", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.WrongUserPw, Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(getApplicationContext(), "Login failed: " + message, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), String.format("Login failed: %s", message), Toast.LENGTH_LONG).show();
                     }
                 });
 

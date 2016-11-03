@@ -19,6 +19,8 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        setTitle("Change server");
+
         final Spinner spinner = (Spinner)findViewById(R.id.spnServer);
 
         String current = LibraryService.getServerAddress();
@@ -46,14 +48,12 @@ public class SettingsActivity extends AppCompatActivity {
 
                             LibraryService.setServerAddress(address);
 
-                            //Intent intent = new Intent(getActivity(), LogInActivity.class);
-                            //startActivity(intent);
                             finish();
                         }
 
                         @Override
                         public void onError(String message) {
-                            Toast.makeText(getApplicationContext(), "Server change failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.ServerChangeFailed, Toast.LENGTH_LONG).show();
                         }
                     });
                 } else {

@@ -10,23 +10,24 @@ import android.widget.TextView;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import ch.hsr.mge.gadgeothek.domain.Loan;
 
 
 
-public class IssueAdapter extends  RecyclerView.Adapter<IssueAdapter.ViewHolder> {
+class IssueAdapter extends  RecyclerView.Adapter<IssueAdapter.ViewHolder> {
     private List<Loan> dataset;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public View parent;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        View parent;
         public TextView textview;
-        public TextView pickView;
-        public TextView retView;
-        public ImageView imgView;
+        TextView pickView;
+        TextView retView;
+        ImageView imgView;
 
-        public ViewHolder(View parent,TextView textView, TextView pickView, TextView retView, ImageView imgView){
+        ViewHolder(View parent, TextView textView, TextView pickView, TextView retView, ImageView imgView){
             super(parent);
             this.parent = parent;
             this.textview = textView;
@@ -36,7 +37,7 @@ public class IssueAdapter extends  RecyclerView.Adapter<IssueAdapter.ViewHolder>
         }
     }
 
-    public IssueAdapter(List<Loan> loans) {
+    IssueAdapter(List<Loan> loans) {
         dataset = loans;
     }
 
@@ -52,8 +53,7 @@ public class IssueAdapter extends  RecyclerView.Adapter<IssueAdapter.ViewHolder>
         TextView pickView = (TextView) v.findViewById(R.id.pickdate);
         TextView retView = (TextView) v.findViewById(R.id.retdate);
         ImageView imgView = (ImageView) v.findViewById(R.id.stateimgview);
-        ViewHolder viewHolder = new ViewHolder(v, textView, pickView, retView, imgView);
-        return viewHolder;
+        return new ViewHolder(v, textView, pickView, retView, imgView);
 
     }
 
@@ -61,16 +61,16 @@ public class IssueAdapter extends  RecyclerView.Adapter<IssueAdapter.ViewHolder>
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Loan loan = dataset.get(position);
         holder.textview.setText(loan.getGadget().getName());
-        holder.pickView.setText("Pickup Date: "+ android.text.format.DateFormat.format("dd.MM.yyyy",loan.getPickupDate()));
+        holder.pickView.setText(String.format("Pickup Date: %s", android.text.format.DateFormat.format("dd.MM.yyyy", loan.getPickupDate())));
 
         if(!loan.isOverdue()) {
             holder.imgView.setImageResource(android.R.drawable.presence_busy);
-            holder.retView.setText("Days until returning: Overdue");
+            holder.retView.setText(R.string.overdue);
             holder.retView.setTextColor(Color.RED);
         }else{
             long timediff = loan.overDueDate().getTime() - new Date().getTime();
             long days = TimeUnit.DAYS.convert(timediff,TimeUnit.MILLISECONDS);
-            holder.retView.setText("Days until returning: "+days);
+            holder.retView.setText(String.format(Locale.GERMAN, "Days until returning: %d", days));
             holder.imgView.setImageResource(android.R.drawable.presence_online);
         }
 

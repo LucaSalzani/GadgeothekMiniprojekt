@@ -17,7 +17,6 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title of the Gadget"
         android:textSize="24sp" />
 
     <ImageView
@@ -27,10 +26,10 @@
         android:id="@+id/stateimgview"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:contentDescription="@string/precensesNew" />
 
     <TextView
-        android:text="Status: Waiting on position 1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/stateview"
@@ -39,7 +38,6 @@
         android:layout_alignStart="@+id/resdate"/>
 
     <TextView
-        android:text="Reservation: 18.10.2016"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/resdate"
@@ -56,6 +54,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/imageButtonRem" />
+        android:id="@+id/imageButtonRem"
+        android:contentDescription="@string/deleteReservationLayout" />
 
 </RelativeLayout>

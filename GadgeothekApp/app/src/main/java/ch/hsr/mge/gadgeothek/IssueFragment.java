@@ -21,9 +21,8 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 
 public class IssueFragment extends Fragment {
-    private RecyclerView recyclerView;
+
     private TextView emptyView;
-    private LinearLayoutManager layoutManager;
     private IssueAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -32,13 +31,13 @@ public class IssueFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         emptyView = (TextView) rootView.findViewById(R.id.emptyView);
 
         // Eine Optimierung, wenn sich die Displaygroesse der Liste nicht aendern wird.
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new IssueAdapter(new ArrayList<Loan>());
@@ -77,7 +76,7 @@ public class IssueFragment extends Fragment {
             }
             @Override
             public void onError(String message) {
-                Toast.makeText(getContext(),"Get loans failed: " + message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), String.format("Get loans failed: %s", message), Toast.LENGTH_LONG).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }});
     }

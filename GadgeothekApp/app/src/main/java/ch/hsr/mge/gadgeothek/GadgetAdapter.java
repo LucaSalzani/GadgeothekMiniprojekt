@@ -17,22 +17,18 @@ import ch.hsr.mge.gadgeothek.service.Callback;
 import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 
-/**
- * Created by fguebeli on 21.10.2016.
- */
-
-public class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolder> {
+class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolder> {
     private List<Gadget> dataset;
     ///private ItemSelectionListener selectionListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public View parent;
-        public TextView textvtitle;
-        public TextView textvprice;
-        public TextView textvcondition;
-        public TextView textvmanufactur;
-        public ImageButton imageButton;
-        public ViewHolder(View parent,TextView textvtitle, TextView textvprice, TextView textvcondition, TextView textvmanufactur, ImageButton imageButton){
+    class ViewHolder extends RecyclerView.ViewHolder {
+        View parent;
+        TextView textvtitle;
+        TextView textvprice;
+        TextView textvcondition;
+        TextView textvmanufactur;
+        ImageButton imageButton;
+        ViewHolder(View parent, TextView textvtitle, TextView textvprice, TextView textvcondition, TextView textvmanufactur, ImageButton imageButton){
             super(parent);
             this.parent = parent;
             this.textvtitle = textvtitle;
@@ -43,7 +39,7 @@ public class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolde
         }
     }
 
-    public GadgetAdapter(List<Gadget> gadgets) {
+    GadgetAdapter(List<Gadget> gadgets) {
         dataset = gadgets;
         //this.selectionListener = selectionListener;
     }
@@ -61,8 +57,7 @@ public class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolde
         TextView textvcondition = (TextView) v.findViewById(R.id.textvcondition);
         TextView textvmanufactur = (TextView) v.findViewById(R.id.textvmanufactur);
         ImageButton imageButton = (ImageButton) v.findViewById(R.id.imageButtonAdd);
-        ViewHolder viewHolder = new ViewHolder(v, textvtitle, textvprice, textvcondition, textvmanufactur, imageButton);
-        return viewHolder;
+        return new ViewHolder(v, textvtitle, textvprice, textvcondition, textvmanufactur, imageButton);
 
     }
 
@@ -72,9 +67,9 @@ public class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolde
         final ViewHolder holder = holderv;
 
         holder.textvtitle.setText(gadget.getName());
-        holder.textvmanufactur.setText("Manufactur: "+ gadget.getManufacturer());
-        holder.textvprice.setText("Price: "+ gadget.getPrice()+" CHF");
-        holder.textvcondition.setText("Condition: "+gadget.getCondition());
+        holder.textvmanufactur.setText(String.format("Manufacturer: %s", gadget.getManufacturer()));
+        holder.textvprice.setText(String.format("Price: %s CHF", gadget.getPrice()));
+        holder.textvcondition.setText(String.format("Condition: %s", gadget.getCondition()));
 
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,15 +78,15 @@ public class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolde
                     @Override
                     public void onCompletion(Boolean input) {
                         if(input){
-                            Toast.makeText(holder.parent.getContext(), "Gadget sucscessful reservated", Toast.LENGTH_LONG).show();
+                            Toast.makeText(holder.parent.getContext(), R.string.ReservationOk, Toast.LENGTH_LONG).show();
                         }else{
-                            Toast.makeText(holder.parent.getContext(), "Gadget reservation not possible", Toast.LENGTH_LONG).show();
+                            Toast.makeText(holder.parent.getContext(), R.string.ReservationNok, Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onError(String message) {
-                        Toast.makeText(holder.parent.getContext(), "Gadget reservation failed: " + message, Toast.LENGTH_LONG).show();
+                        Toast.makeText(holder.parent.getContext(), String.format("Gadget reservation failed: %s", message), Toast.LENGTH_LONG).show();
                     }
                 });
             }

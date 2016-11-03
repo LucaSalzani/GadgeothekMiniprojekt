@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 
 import java.util.List;
+import java.util.Locale;
 
 import ch.hsr.mge.gadgeothek.domain.Reservation;
 import ch.hsr.mge.gadgeothek.helper.ItemSelectionListener;
@@ -20,22 +21,18 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 import static java.security.AccessController.getContext;
 
 
-/**
- * Created by fguebeli on 21.10.2016.
- */
-
-public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter.ViewHolder> {
+class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter.ViewHolder> {
     private List<Reservation> dataset;
     private ItemSelectionListener selectionListener;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public View parent;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        View parent;
         public TextView textview;
-        public TextView dueView;
-        public TextView stateView;
-        public ImageView imgView;
-        public ImageButton imgButton;
-        public ViewHolder(View parent,TextView textView, TextView dueView, TextView stateView, ImageView imgView, ImageButton imgButton){
+        TextView dueView;
+        TextView stateView;
+        ImageView imgView;
+        ImageButton imgButton;
+        ViewHolder(View parent, TextView textView, TextView dueView, TextView stateView, ImageView imgView, ImageButton imgButton){
             super(parent);
             this.parent = parent;
             this.textview = textView;
@@ -46,7 +43,7 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
         }
     }
 
-    public ReservationAdapter(List<Reservation> loans, ItemSelectionListener selectionListener) {
+    ReservationAdapter(List<Reservation> loans, ItemSelectionListener selectionListener) {
         dataset = loans;
         this.selectionListener = selectionListener;
     }
@@ -64,27 +61,25 @@ public class ReservationAdapter extends  RecyclerView.Adapter<ReservationAdapter
         TextView stateView = (TextView) v.findViewById(R.id.stateview);
         ImageView imgView = (ImageView) v.findViewById(R.id.stateimgview);
         ImageButton imgButton = (ImageButton) v.findViewById(R.id.imageButtonRem);
-        ViewHolder viewHolder = new ViewHolder(v, textView, dueView, stateView, imgView, imgButton);
-        return viewHolder;
+        return new ViewHolder(v, textView, dueView, stateView, imgView, imgButton);
 
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holderv, final int position) {
         final Reservation res = dataset.get(position);
-        final ViewHolder holder = holderv;
-        holder.textview.setText(res.getGadget().getName());
-        holder.dueView.setText("Reserved: "+ android.text.format.DateFormat.format("dd.MM.yyyy",res.getReservationDate()));
+        holderv.textview.setText(res.getGadget().getName());
+        holderv.dueView.setText(String.format("Reserved: %s", android.text.format.DateFormat.format("dd.MM.yyyy", res.getReservationDate())));
         if(!res.isReady()) {
-            holder.imgView.setImageResource(android.R.drawable.presence_away);
-            holder.stateView.setText("Status: Waiting on position "+res.getWatingPosition());
+            holderv.imgView.setImageResource(android.R.drawable.presence_away);
+            holderv.stateView.setText(String.format(Locale.GERMAN, "Status: Waiting on position %d", res.getWatingPosition()));
         }else{
-            holder.imgView.setImageResource(android.R.drawable.presence_online);
-            holder.stateView.setText("Status: Ready to pick up");
+            holderv.imgView.setImageResource(android.R.drawable.presence_online);
+            holderv.stateView.setText(R.string.ReadyToPickup);
         }
 
 
-        holder.imgButton.setOnClickListener(new View.OnClickListener() {
+        holderv.imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectionListener.onItemSelected(res);

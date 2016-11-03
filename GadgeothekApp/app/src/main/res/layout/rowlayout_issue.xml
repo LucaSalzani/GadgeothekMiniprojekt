@@ -20,7 +20,6 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title of the Gadget"
         android:textSize="24sp" />
 
     <ImageView
@@ -30,10 +29,10 @@
         android:id="@+id/stateimgview"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:contentDescription="@string/presences" />
 
     <TextView
-        android:text="Pickup Date: 18.10.2016"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/pickdate"
@@ -42,7 +41,6 @@
         android:layout_alignStart="@+id/textView"/>
 
     <TextView
-        android:text="Return Date: 25.10.2016"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/retdate"

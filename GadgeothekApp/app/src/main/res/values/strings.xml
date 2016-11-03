@@ -29,6 +29,22 @@
     <string name="save">Save</string>
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
+    <string name="add_reservation">Add reservation</string>
+    <string name="overdue">Days until returning: Overdue</string>
+    <string name="ReservationOk">Gadget successfully reserved</string>
+    <string name="ReservationNok">Gadget reservation not possible</string>
+    <string name="WrongUserPw">Wrong user or password</string>
+    <string name="youarefucked">Could not logout. Well, you\'re fucked</string>
+    <string name="RegisterOk">Register completed</string>
+    <string name="RegisterNok">Register not successful</string>
+    <string name="ReadyToPickup">Status: Ready to pick up</string>
+    <string name="ReservationDeleted">Reservation deleted</string>
+    <string name="ReservationDeletedFailed">"Delete reservation failed: "</string>
+    <string name="ServerChangeFailed">Server change failed</string>
+    <string name="NoItemsFound">No Items found</string>
+    <string name="presences">Presences</string>
+    <string name="deleteReservationLayout">DeleteReservation</string>
+    <string name="precensesNew">Precenses</string>
 
 
     <string-array name="server_list">
