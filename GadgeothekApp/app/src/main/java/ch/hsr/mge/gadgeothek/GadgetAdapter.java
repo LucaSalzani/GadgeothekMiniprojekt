@@ -19,7 +19,6 @@ import ch.hsr.mge.gadgeothek.service.LibraryService;
 
 class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolder> {
     private List<Gadget> dataset;
-    ///private ItemSelectionListener selectionListener;
 
     class ViewHolder extends RecyclerView.ViewHolder {
         View parent;
@@ -41,7 +40,6 @@ class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolder> {
 
     GadgetAdapter(List<Gadget> gadgets) {
         dataset = gadgets;
-        //this.selectionListener = selectionListener;
     }
 
     public void setData(List<Gadget> gadgets){
@@ -78,7 +76,7 @@ class GadgetAdapter extends  RecyclerView.Adapter<GadgetAdapter.ViewHolder> {
                     @Override
                     public void onCompletion(Boolean input) {
                         if(input){
-                            Toast.makeText(holder.parent.getContext(), R.string.ReservationOk, Toast.LENGTH_LONG).show();
+                            Toast.makeText(holder.parent.getContext(), R.string.ReservationOk, Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(holder.parent.getContext(), R.string.ReservationNok, Toast.LENGTH_LONG).show();
                         }

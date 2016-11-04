@@ -54,8 +54,7 @@ public class LogInActivity extends AppCompatActivity {
                 String email = ((EditText)findViewById(R.id.etEmail)).getText().toString();
                 String password = ((EditText)findViewById(R.id.etPassword)).getText().toString();
 
-                //LibraryService.login(email, password, new Callback<Boolean>() { //TODO: Uncomment at the end
-                LibraryService.login("test1", "test1", new Callback<Boolean>() {
+                LibraryService.login(email, password, new Callback<Boolean>() {
                     @Override
                     public void onCompletion(Boolean input) {
                         if (input) {

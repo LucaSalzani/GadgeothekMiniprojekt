@@ -103,7 +103,7 @@ public class ReservationFragment extends Fragment implements ItemSelectionListen
         LibraryService.deleteReservation(res, new Callback<Boolean>() {
             @Override
             public void onCompletion(Boolean input) {
-                Toast.makeText(getContext(), R.string.ReservationDeleted, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.ReservationDeleted, Toast.LENGTH_SHORT).show();
             }
 
             @Override
